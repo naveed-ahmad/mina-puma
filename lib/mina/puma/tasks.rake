@@ -23,8 +23,8 @@ namespace :puma do
     command %[
       server_puma_running_status=""
       if [ -e "#{fetch(:pumactl_state)}" ]; then
-        server_puma_pid=$(cat '#{puma_state}' | grep pid | awk '{print $2}')
-        server_puma_running_status=$(ps -ef | grep $server_puma_pid | grep '#{puma_socket}')
+        server_puma_pid=$(cat "#{fetch(:puma_state)}" | grep pid | awk '{print $2}')
+        server_puma_running_status=$(ps -ef | grep $server_puma_pid | grep "#{fetch(:puma_socket)}")
       fi
       if [ -e "#{fetch(:pumactl_socket)}" -a "$server_puma_running_status" != "" ]; then
         echo 'Puma is already running!';
@@ -92,8 +92,8 @@ namespace :puma do
     cmd =  %{
       server_puma_running_status=""
       if [ -e "#{fetch(:pumactl_state)}" ]; then
-        server_puma_pid=$(cat '#{puma_state}' | grep pid | awk '{print $2}')
-        server_puma_running_status=$(ps -ef | grep $server_puma_pid | grep '#{puma_socket}')
+        server_puma_pid=$(cat "#{fetch(:puma_state)}" | grep pid | awk '{print $2}')
+        server_puma_running_status=$(ps -ef | grep $server_puma_pid | grep "#{fetch(:puma_socket)}")
       fi
       if [ -e "#{fetch(:pumactl_socket)}" -a "$server_puma_running_status" != "" ]; then
         if [ -e "#{fetch(:puma_config)}" ]; then
